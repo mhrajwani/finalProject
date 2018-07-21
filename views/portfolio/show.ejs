@@ -1,0 +1,74 @@
+<% include ../partials/header %>
+
+    <% var cash = portfolio.cash %>
+    <% var stocks = portfolio.stocks %>
+    <% var debts = portfolio.debts %>
+    <% var other_assets = portfolio.other_assets %>
+    <% var other_liabilities = portfolio.other_liabilities %>
+    <% var total = portfolio.cash + portfolio.stocks- portfolio.debts+portfolio.other_assets-portfolio.other_liabilities%>
+    
+
+    <div class = "mydiv">
+        <canvas id="myChart"></canvas>
+        
+        <% if (total< 0) { %>
+        <h3>Sorry!!, Your Financial position is not good, Your NET ASSET is $<%=total%></h3>
+        <% } else { %>
+        <h3>Congrats!! Your Financial position is Good, Your NET ASSET is $<%=total%></h3>
+        <% } %>
+        <a href="/main">Go Back</a>
+    </div>
+
+    
+<script src = "../../scripts/portfolioShow.js"></script>
+<!-- <script>
+    $(document).ready(function() {
+    var cash = "<%= cash %>";
+    var stocks = "<%= stocks %>";
+    var debts = "<%= debts %>";
+    debts = debts * -1;
+    var other_assets = "<%= other_assets %>";
+    var other_liabilities = "<%= other_liabilities %>";
+    other_liabilities = other_liabilities * -1;
+    var total = "<%= total %>";
+    
+    var ctx = document.getElementById("myChart");
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ["cash", "stock", "debts", "other assets", "other liabilities", "Net Assets"],
+                            datasets: [{
+                                label: 'MY Portfolio',
+                                data: [cash,stocks,debts,other_assets,other_liabilities,total],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+    })
+    </script> -->
+<% include ../partials/footer %>

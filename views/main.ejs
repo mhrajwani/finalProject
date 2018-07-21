@@ -1,0 +1,164 @@
+<% include partials/header %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<div class="jumbotron navmargin">
+  <h1 class="display-4">Welcome to you Financial Guide</h1>
+  <p class="lead">Create your portfolio, get all Financial news and have your own Stock watchlist</p>
+  <hr class="my-4">
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+<div class = "container-fluid">
+  <div class="row">
+    <div class="col-lg-4 col-md-6" >
+      <div class="cont">
+      <h4 class="center">PORTFOLIO</h4>
+      
+      <% var cre = false %>
+      <% portfolio.forEach(function(portfolio){ %>
+      
+      <% if (currentUser.username == portfolio.user.username) { %>
+      
+      <p class = "para"><strong>CASH :</strong><span class = "span"> $<%=portfolio.cash%></span></p>
+      <p class = "para"><strong>STOCKS :</strong><span class = "span"> $<%=portfolio.stocks%></span></p>
+      <p class = "para"><strong>DEBTS :</strong><span class = "span"> $<%=portfolio.debts%></span></p>
+      <p class = "para"><strong>OTHER ASSETS :</strong><span class = "span"> $<%=portfolio.other_assets%></span></p>
+      <p class = "para"><strong>OTHER LIABILITIES :</strong><span class = "span"> $<%=portfolio.other_liabilities%></span></p>
+      
+    <p class = "para"><strong>TOTAL : </strong><span class = "span">$<%=portfolio.cash+ portfolio.stocks- portfolio.debts+portfolio.other_assets-portfolio.other_liabilities%></span></p>
+      
+      <a class="btn btn-success btn-sm" href="/portfolio/<%=portfolio._id%>">Show More</a>
+      <a class="btn btn-warning btn-sm" href="/portfolio/<%=portfolio._id%>/update">Update Portfolio</a> 
+      
+      <% cre = true %>
+       <% }}); %>   
+          <% if ( cre == false) { %>
+          <a class="btn btn-primary btn-sm" href="/portfolio">Create Portfolio</a>
+          <% } %>
+         
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="cont">
+      <h4 class="center">WATCHLIST</h4>
+      <% watchlist.forEach(function(watchlist){ %> 
+      
+      <% var symbol = watchlist.stock_symbol.toUpperCase()%>
+      <p class = "para">
+      <% if (currentUser.username == watchlist.user.username && sb[symbol]) { %>
+      
+
+      
+      <% let currentPrice = sb[symbol].quote.latestPrice%>
+      <div class="row">
+        <div class="col-lg-3" >
+          <div class="alignWatchlist"><%=watchlist.company_name%></div>
+        </div>
+        <div class="col-md-2" >
+            <a class="btn btn-default btn-sm">$<%=currentPrice%></a>
+        </div>
+        <div class="col-md-3" >
+            <a class="btn btn-success btn-sm" href="/watchlist/<%=watchlist._id%>">Show More</a>
+        </div>
+        <div class="col-md-3" >
+            <a class="btn btn-warning btn-sm" href="/watchlist/<%=watchlist._id%>/update">Update Watchlist</a>
+        </div>
+      </div>
+      <%}else if (currentUser.username == watchlist.user.username){%>
+        
+        <form action = "/watchlist/<%=watchlist._id %>/delete" method = "POST" class="form-inline">
+          NOT A VALID STOCK SYMBOL
+          <button type ="submit" class="btn btn-danger btn-sm">Remove</button>
+      </form>
+      </p>
+       <% }}); %>
+      <a class="btn btn-primary btn-sm" href="/watchlist">Add Watchlist</a>
+      </div>
+    </div>
+    
+    
+    <div class="col-lg-4 col-md-6">
+      <div class="cont">
+      <h4 class="center">Bookmark your Favourite Links</h4>
+
+      <form action = "/links" method = "POST" class="form-inline" >
+        <input type = "text" name = "link" placeholder = "Name">
+        <input type = "text" name = "address" placeholder = "Web Address">
+        <button type = "submit" class ="btn btn-primary btn-sm" > Add Link</button>
+        </form>
+        
+      
+        <% link.forEach(function(link){ %>
+        
+        <% if (currentUser.username == link.user.username) { %>
+        
+        <p class = "para">
+          
+          <form action = "/link/<%=link._id %>" method = "POST" class="form-inline">
+          
+          
+          <a href="<%= link.address %>" class="btn btn-primary btn-sm" target="_blank"><%= link.name  %></a>
+          
+          
+          <button type ="submit" class="btn btn-danger btn-sm" id = "btt">Remove</button>
+        </form>
+      </p>
+      <% } %>
+    
+        <% }); %>
+        
+    
+        
+    </div>
+    </div>
+</div>
+<hr>
+  <div class="row">
+    <div class="col-lg-12" >
+     
+      <h1 class="center">
+        <strong>
+          <i class="fa fa-newspaper-o"></i> Search for Stock and financial News</strong>
+      </h1>
+    <!-- Row for Searching New York Times -->
+    <div class="row">
+      <div class="col-sm-12">
+
+            <!-- Here we create an HTML Form for handling the inputs-->
+            <form role="form">
+
+              <!-- Here we create the text box for capturing the search term-->
+              <div class="form-group">
+                <label for="search">Search Term:</label>
+                <input type="text" class="form-control" id="search-term">
+              </div>
+
+            
+
+              <!-- Here we have our final submit button -->
+              <button type="submit" class="btn btn-default" id="run-search">
+                <i class="fa fa-search"></i> Search</button>
+              <button type="button" class="btn btn-default" id="clear-all">
+                <i class="fa fa-trash"></i> Clear Results</button>
+
+            </form>
+          
+        </div>
+      </div>
+    
+
+          <!-- This main panel will hold each of the resulting articles -->
+          <div class="panel-body" id="well-section">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="scripts/NYTCode.js"></script>
+<% include partials/footer %>

@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+    <div class="row">
+        <h1 class = "center">Update Portfolio</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/portfolio/<%=portfolio._id%>" method="POST">
+                <div class="form-group">
+                    <label>Cash</label>
+                    <input class="form-control" type="number" name="portfolio[cash]" value = "<%=portfolio.cash%>">
+                </div>
+                <div class="form-group">
+                    <label>Stock</label>
+                    <input class="form-control" type="number" name="portfolio[stocks]" value = "<%=portfolio.stocks%>">
+                </div>
+                <div class="form-group">
+                    <label>Debts</label>
+                    <input class="form-control" type="number" name="portfolio[debts]" value = "<%=portfolio.debts%>">
+                </div>
+                <div class="form-group">
+                    <label>Other Assets</label>
+                    <input class="form-control" type="number" name="portfolio[other_assets]" value = "<%=portfolio.other_assets%>">
+                </div>
+                <div class="form-group">
+                    <label>Other Liabilities</label>
+                    <input class="form-control" type="number" name="portfolio[other_liabilities]" value = "<%=portfolio.other_liabilities%>">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/main">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

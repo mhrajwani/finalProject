@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+    <div class="row">
+        <h1 class="center">Update watchlist</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/watchlist/<%=watchlist._id%>" method="POST">
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input class="form-control" type="text" name="watchlist[company_name]" value = "<%=watchlist.company_name%>">
+                </div>
+                <div class="form-group">
+                    <label>Symbol</label>
+                    <input class="form-control" type="text" name="watchlist[symbol]" value = "<%=watchlist.stock_symbol%>">
+                </div>
+                <div class="form-group">
+                    <label>Target Price</label>
+                    <input class="form-control" type="text" name="watchlist[target_price]" value = "<%=watchlist.target_price%>">
+                </div>
+                <div class="form-group">
+                    <label>Important Dates</label>
+                    <textarea name="watchlist[important_dates]"><%=watchlist.important_dates%></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Additioal Notes</label>
+                    <textarea name="watchlist[additional_notes]"><%=watchlist.additional_notes%></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/main">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

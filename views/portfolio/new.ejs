@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+    <div class="row">
+        <h1 class="center">Create Portfolio</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/portfolio" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="number" name="cash" placeholder="Cash">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="stock" placeholder="Stock">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="debt" placeholder="Debt">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="asset" placeholder="Other Assets">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="liabilities" placeholder="Other Liabilities">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/main">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

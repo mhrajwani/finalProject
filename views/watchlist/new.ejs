@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+    <div class="row">
+        <h1 class="center">Create Portfolio</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/watchlist" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="cn" placeholder="Company Name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="symbol" placeholder="Stock Symbol">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="tp" placeholder="Target Price">
+                </div>
+                <div class="form-group">
+                    <textarea name="imd">Important Dates</textarea>
+                </div>
+                <div class="form-group">
+                    <textarea name="an">Additional Notes</textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/main">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

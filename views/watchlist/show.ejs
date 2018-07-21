@@ -1,0 +1,144 @@
+<% include ../partials/header %>
+<div class = "container">
+<div class = "row">
+
+<div class="col-lg-6">
+<div class ="cont">
+<h1 class="center"><%=sb.quote.companyName%><img src=<%=sb.logo.url%> alt="company logo" height="42" width="42"></h1>
+<p class = "para"><strong>Stock symbol: </strong><%=watchlist.stock_symbol%></p>
+<p class = "para"><strong>Target Price: </strong><%=watchlist.target_price%></p>
+<p class = "para"><strong>Sector: </strong><%=sb.quote.sector%></p>
+<p class = "para"><strong>Description: </strong><%=sb.company.description%></p>
+<p class = "para"><strong>Website: </strong><a href=<%=sb.company.website%>><%=sb.company.website%></a>
+<p class = "para"><strong>Primary Exchange: </strong><%=sb.quote.primaryExchange%></p>
+<p class = "para"><strong>Important Dates: </strong><%=watchlist.important_dates%></p>
+<p class = "para"><strong>Additional Notes: </strong><%=watchlist.additional_notes%></p>
+
+<form action = "/watchlist/<%=watchlist._id %>/delete" method = "POST" class="form-inline" id = "wldelete">
+    <a class="btn btn-warning btn-sm" href="/watchlist/<%=watchlist._id%>/update">Update Watchlist</a>
+<button type ="submit" class="btn btn-danger btn-sm">Remove</button>
+<a href="/main">Go Back</a>
+</div>
+</div>
+
+<div class = "col-lg-6">
+<div class ="cont">
+<h1 class = "center"> Real-Time Information</h1>
+<p class = "para"><strong>Current Price: </strong>$<%=sb.quote.latestPrice%> as of <%=sb.quote.latestTime%></p>
+<p class = "para"><strong>Previous Close: </strong>$<%=sb.quote.previousClose%></p>
+<% var pc = parseFloat(sb.quote.changePercent).toFixed(4)*100 %>
+<p class = "para"><strong>Percentage Change: </strong><%=pc%>% </p>
+<p class = "para"><strong>Today High: </strong>$<%=sb.quote.high%></p>
+<p class = "para"><strong>Today Low: </strong>$<%=sb.quote.low%></p>
+<% var n = sb.quote.marketCap %>
+<% var m = n.toLocaleString()%>
+<p class = "para"><strong>Market Capitalization: </strong>$<%= m %></p>
+<p class = "para"><strong>Price-Earning Ratio : </strong><%=sb.quote.peRatio%></p>
+<p class = "para"><strong>Lastest Volume : </strong><%=sb.quote.latestVolume.toLocaleString()%></p>
+<p class = "para"><strong>Average Daily Volume : </strong><%=sb.quote.avgTotalVolume.toLocaleString()%></p>
+<p class = "para"><strong>52 Weeks High: </strong>$<%=sb.quote.week52High%></p>
+<p class = "para"><strong>52 Weeks Low: </strong>$<%=sb.quote.week52Low%></p>
+
+
+</div>
+</div>
+
+
+<div class = "col-lg-6">
+<div class ="cont">
+<h1 class = "center"> 1 Month Chart</h1>
+<canvas id="myChart"></canvas>
+
+<%
+var data=[];
+var label=[];
+var l2;
+var sba = sb.chart;
+
+sb.chart.forEach(function(sb){
+
+data.push(sb.close);
+label.push(sb.label + "");
+l2 = label.map(String);
+
+});
+%>
+
+</div>
+</div>
+
+<div class = "col-lg-6">
+    <div class ="cont">
+    <h1 class = "center"> Top Headlines</h1>
+    <% var count = 1 %>
+    <% sb.news.forEach(function(sb){ %>
+        
+    <p class = "para">
+    <strong><%=count%>) <%= sb.headline%><br></strong>
+    <strong>Source: </strong><%= sb.source%><br>
+    <strong>Summary: </strong><%= sb.summary%><br>
+    <a href=<%= sb.url%> target="_blank">Read more</a><br>
+    <strong><%= sb.datetime%></strong>
+    <%count++%>
+    <% }); %>
+    </p>
+        
+</div>
+</div>
+
+<div class = "col-lg-6">
+    <div class ="cont">
+    <h1 class = "center"> Basic Technical and Fundamental Analysis</h1>
+
+    <p class = "para">The average historical PE Ratio of US public company is approximately 16, this stock has PE Ratio of <strong><%=sb.quote.peRatio%></strong></p>
+    <p class = "para"><strong>Momentum: </strong>The stock has changed by <strong><%=parseFloat(sb.stats.month1ChangePercent).toFixed(5)*100%>%</strong> in the past month, <strong><%=parseFloat(sb.stats.month6ChangePercent).toFixed(5)*100%>%</strong> in the past 6 months and <strong><%=parseFloat(sb.quote.ytdChange).toFixed(5)*100%>%</strong> year to date.</p>
+    <p class = "para"><strong>Fundamentals: </strong>The yearly revenue is <strong>$<%=sb.stats.revenue.toLocaleString()%></strong>, EBITDA is <strong>$<%=sb.stats.EBITDA.toLocaleString()%></strong>, gross profit is <strong>$<%=sb.stats.grossProfit.toLocaleString()%></strong>, Cash is <strong>$<%=sb.stats.cash.toLocaleString()%></strong> and debt is <strong>$<%=sb.stats.debt.toLocaleString()%></strong>.</p>
+    <p class = "para">Return on Equity(ROE): <strong><%=sb.stats.returnOnEquity%>%</strong>, Profit Margin: <strong><%=sb.stats.profitMargin%>%</strong> and Trailing twelve month Earning per share(TTM EPS): <strong><%=sb.stats.ttmEPS%></strong>.</p>
+    <p class = "para"><strong>Technical: </strong>The 50 days moving average is <strong><%=sb.stats.day50MovingAvg%></strong> and The 200 days moving average is <strong><%=sb.stats.day200MovingAvg%></strong>.</p>
+    <p class = "para"><strong>Institutional Shareholder: <%=sb.stats.institutionPercent%>%</strong> of total stock is help by institutinal investors i.e Investment Banks, hedge funds, commercial trust, mutual funds and so on. Rest by individual investors.</p>
+    <p class = "para"><strong>BETA: </strong> The stock beta is <strong><%=sb.stats.beta%></strong>, Beta less the 1 means stock is less volatile that the market.<p>
+    </div>
+    </div>
+
+</div>
+</div>
+
+<script src = "../../scripts/watchlistShow.js"></script>
+<!-- <script >
+                var data = [<%= data %>];
+                var label1 = "<%= label%>";
+                var label = label1.split(",");
+                var ctx = document.getElementById("myChart");
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+              
+
+<script src = "../../scripts/watchlistShow.js"></script>
+<!-- <script >
+                var data = [<%= data %>];
+                var label1 = "<%= label%>";
+                var label = label1.split(",");
+                var ctx = document.getElementById("myChart");
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: 'Stock Price',
+                            data: data,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:false
+                                }
+                            }]
+                        }
+                    }
+                });
+                </script> -->
+
+<% include ../partials/footer %>
