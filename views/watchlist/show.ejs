@@ -5,7 +5,7 @@
 <div class="col-lg-6">
 <div class ="cont">
 <h1 class="center"><%=sb.quote.companyName%><img src=<%=sb.logo.url%> alt="company logo" height="42" width="42"></h1>
-<p class = "para"><strong>Stock symbol: </strong><%=watchlist.stock_symbol%></p>
+<p class = "para"><strong>Stock symbol: </strong><span id="sym"><%=watchlist.stock_symbol%></span></p>
 <p class = "para"><strong>Target Price: </strong><%=watchlist.target_price%></p>
 <p class = "para"><strong>Sector: </strong><%=sb.quote.sector%></p>
 <p class = "para"><strong>Description: </strong><%=sb.company.description%></p>
@@ -46,9 +46,17 @@
 
 <div class = "col-lg-6">
 <div class ="cont">
-<h1 class = "center"> 1 Month Chart</h1>
+<h1 class = "center">Stock Chart</h1>
 <canvas id="myChart"></canvas>
-
+<div class="center">
+<a class="btn btn-info btn-sm chart" value="1d" duration = "1 DAY">1 day</a>
+<a class="btn btn-info btn-sm chart" value="1m" duration = "1 MONTH">1 months</a>
+<a class="btn btn-info btn-sm chart" value="3m" duration = "3 MONTHS">3 months</a>
+<a class="btn btn-info btn-sm chart" value="6m" duration = "6 MONTHS">6 months</a>
+<a class="btn btn-info btn-sm chart" value="1y" duration = "1 YEAR">1 year</a>
+<a class="btn btn-info btn-sm chart" value="2y" duration = "2 YEARS">2 year</a>
+<a class="btn btn-info btn-sm chart" value="5y" duration = "5 YEARS">5 year</a>
+</div>
 <%
 var data=[];
 var label=[];
@@ -69,25 +77,6 @@ l2 = label.map(String);
 
 <div class = "col-lg-6">
     <div class ="cont">
-    <h1 class = "center"> Top Headlines</h1>
-    <% var count = 1 %>
-    <% sb.news.forEach(function(sb){ %>
-        
-    <p class = "para">
-    <strong><%=count%>) <%= sb.headline%><br></strong>
-    <strong>Source: </strong><%= sb.source%><br>
-    <strong>Summary: </strong><%= sb.summary%><br>
-    <a href=<%= sb.url%> target="_blank">Read more</a><br>
-    <strong><%= sb.datetime%></strong>
-    <%count++%>
-    <% }); %>
-    </p>
-        
-</div>
-</div>
-
-<div class = "col-lg-6">
-    <div class ="cont">
     <h1 class = "center"> Basic Technical and Fundamental Analysis</h1>
 
     <p class = "para">The average historical PE Ratio of US public company is approximately 16, this stock has PE Ratio of <strong><%=sb.quote.peRatio%></strong></p>
@@ -97,6 +86,25 @@ l2 = label.map(String);
     <p class = "para"><strong>Technical: </strong>The 50 days moving average is <strong><%=sb.stats.day50MovingAvg%></strong> and The 200 days moving average is <strong><%=sb.stats.day200MovingAvg%></strong>.</p>
     <p class = "para"><strong>Institutional Shareholder: <%=sb.stats.institutionPercent%>%</strong> of total stock is help by institutinal investors i.e Investment Banks, hedge funds, commercial trust, mutual funds and so on. Rest by individual investors.</p>
     <p class = "para"><strong>BETA: </strong> The stock beta is <strong><%=sb.stats.beta%></strong>, Beta less the 1 means stock is less volatile that the market.<p>
+    </div>
+    </div>
+
+    <div class = "col-lg-6">
+        <div class ="cont">
+        <h1 class = "center"> Top Headlines</h1>
+        <% var count = 1 %>
+        <% sb.news.forEach(function(sb){ %>
+            
+        <p class = "para">
+        <strong><%=count%>) <%= sb.headline%><br></strong>
+        <strong>Source: </strong><%= sb.source%><br>
+        <strong>Summary: </strong><%= sb.summary%><br>
+        <a href=<%= sb.url%> target="_blank">Read more</a><br>
+        <strong><%= sb.datetime%></strong>
+        <%count++%>
+        <% }); %>
+        </p>
+            
     </div>
     </div>
 

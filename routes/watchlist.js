@@ -94,7 +94,7 @@ router.get("/watchlist2/:id", function(req, res){
         }
         
         var symbol = fp.stock_symbol;
-        var url = "https://api.iextrading.com/1.0/stock/"+ symbol + "/batch?types=quote,news,chart&range=1m&last=10";
+        var url = "https://api.iextrading.com/1.0/stock/"+ symbol + "/chart";
         request(url, function (error, response, body) {
         var sb = JSON.parse(body);
         res.send(sb);

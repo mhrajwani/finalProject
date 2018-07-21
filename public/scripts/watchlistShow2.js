@@ -6,12 +6,9 @@ $(document).ready(function() {
     var symbol = document.getElementById("sym").innerHTML
     
     var url2 = "https://api.iextrading.com/1.0/stock/"+ symbol + "/chart/"
-    var time;
-
-
+var time;
 $(".chart").click(function(){
  time = $(this).attr("value")
- var duration = $(this).attr("duration")
  
 var url3 = url2+time
 console.log(url3);
@@ -33,10 +30,9 @@ var myChart = new Chart(ctx, {
                     data: {
                         labels: label,
                         datasets: [{
-                            label: duration,
+                            label: "Chart",
                             data: data,
-                            borderWidth: 1,
-                            pointRadius: 0
+                            borderWidth: 1
                         }]
                     },
                     options: {
@@ -52,7 +48,8 @@ var myChart = new Chart(ctx, {
             })
 })
 
-    var duration = "1 MONTH"
+var url3 = url2+time
+console.log(url3);
     $.ajax({
         url: url2,
     }).done(function(sb){
@@ -71,7 +68,7 @@ var myChart = new Chart(ctx, {
                     data: {
                         labels: label,
                         datasets: [{
-                            label: duration,
+                            label: "Chart",
                             data: data,
                             borderWidth: 1
                         }]
