@@ -9,7 +9,8 @@ var express               = require("express"),
 var portfolioRoutes       = require("./routes/portfolio"),
     linksRoutes           = require("./routes/link"),
     indexRoutes           = require("./routes/index"),
-    watchlistRoutes       = require("./routes/watchlist");
+    watchlistRoutes       = require("./routes/watchlist"),
+    PORT = process.env.PORT || 8080;
     
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/userdb";
 
@@ -43,7 +44,7 @@ app.use("/",portfolioRoutes);
 app.use("/",linksRoutes);
 app.use("/",watchlistRoutes);
 
-app.listen(process.env.PORT,process.env.IP, function(){
+app.listen(PORT,process.env.IP, function(){
     
-    console.log("server has started on :")
+    console.log("server has started on :" + PORT)
 })
