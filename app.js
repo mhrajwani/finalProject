@@ -3,13 +3,19 @@ var express               = require("express"),
     passport              = require("passport"),
     bodyParser            = require("body-parser"),
     User                  = require("./models/user"),
-    LocalStrategy         = require("passport-local"),
-    portfolioRoutes       = require("./routes/portfolio"),
+    LocalStrategy         = require("passport-local");
+    
+    
+var portfolioRoutes       = require("./routes/portfolio"),
     linksRoutes           = require("./routes/link"),
     indexRoutes           = require("./routes/index"),
     watchlistRoutes       = require("./routes/watchlist");
     
-mongoose.connect("mongodb://ucfapp:hpl1940t@ds243441.mlab.com:43441/ucfstockapp");
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/userdb";
+
+
+mongoose.connect(MONGODB_URI);
+
 
 var app = express();
 app.set("view engine", "ejs");
