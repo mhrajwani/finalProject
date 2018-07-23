@@ -3,19 +3,15 @@ var express               = require("express"),
     passport              = require("passport"),
     bodyParser            = require("body-parser"),
     User                  = require("./models/user"),
-    Link                  = require("./models/link"),
-    Portfolio             = require("./models/portfolio"),
-    Watchlist             = require("./models/watchlist"),
-    LocalStrategy         = require("passport-local"),
-    passportLocalMongoose = require("passport-local-mongoose"),
-    request               = require("request")
+    LocalStrategy         = require("passport-local");
+    
     
 var portfolioRoutes       = require("./routes/portfolio"),
     linksRoutes           = require("./routes/link"),
     indexRoutes           = require("./routes/index"),
-    watchlistRoutes       = require("./routes/watchlist")
+    watchlistRoutes       = require("./routes/watchlist");
     
-mongoose.connect("mongodb://localhost/userdb");
+mongoose.connect("mongodb://ucfapp:hpl1940t@ds243441.mlab.com:43441/ucfstockapp");
 
 var app = express();
 app.set("view engine", "ejs");
@@ -43,8 +39,7 @@ app.use("/",portfolioRoutes);
 app.use("/",linksRoutes);
 app.use("/",watchlistRoutes);
 
-
-app.listen(8080, function(){
+app.listen(process.env.PORT,process.env.IP, function(){
     
-    console.log("server has startes on : 8080")
+    console.log("server has started on :")
 })
