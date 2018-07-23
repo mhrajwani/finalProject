@@ -3,10 +3,8 @@ var express               = require("express"),
     passport              = require("passport"),
     bodyParser            = require("body-parser"),
     User                  = require("./models/user"),
-    LocalStrategy         = require("passport-local");
-    
-    
-var portfolioRoutes       = require("./routes/portfolio"),
+    LocalStrategy         = require("passport-local"),
+    portfolioRoutes       = require("./routes/portfolio"),
     linksRoutes           = require("./routes/link"),
     indexRoutes           = require("./routes/index"),
     watchlistRoutes       = require("./routes/watchlist");
