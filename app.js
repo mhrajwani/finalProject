@@ -3,6 +3,7 @@ var express               = require("express"),
     passport              = require("passport"),
     bodyParser            = require("body-parser"),
     User                  = require("./models/user"),
+    flash                 = require('connect-flash'),
     LocalStrategy         = require("passport-local");
     
     
@@ -27,7 +28,7 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 

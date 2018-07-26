@@ -45,21 +45,21 @@ main: function(req,res){
 
 getLogin: function(req,res){
     
-    res.render("login");
+    res.render("login",{message:req.flash("error")});
     
 },
 
 getRegister: function(req,res){
-    
-    res.render("register");
-    
+    var err = [];
+    res.render("register",{err:err});
 },
 
 postRegister: function(req, res){
     User.register(new User({username: req.body.username}), req.body.password, function(err, user){
         if(err){
             console.log(err);
-            return res.render('register');
+            var err = err;
+            res.render('register',{err:err});
         }
         passport.authenticate("local")(req, res, function(){
            res.redirect("/main");
@@ -69,7 +69,8 @@ postRegister: function(req, res){
 
 postLogin: passport.authenticate("local", {
     successRedirect: "/main",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash:true
 }) ,function(req, res){
 },
 
