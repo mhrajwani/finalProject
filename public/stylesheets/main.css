@@ -1,5 +1,5 @@
 body{
-    font-family: 'Roboto Slab', serif;
+    font-family: 'ABeeZee', sans-serif;
 }
 
 #loginbtn {
@@ -68,3 +68,15 @@ body{
 textarea {
     width: 100%;
   }
+
+  .footer{
+    width: 40%;
+    margin:auto;
+    text-align: center;
+    border-radius: 25px;
+    border: 1px solid black;
+    background: #f5f5f0;
+    padding: 1px;
+    text-shadow: 1px 1px grey;
+    font-family: 'Indie Flower', cursive;
+}

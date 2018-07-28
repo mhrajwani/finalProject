@@ -79,4 +79,10 @@ getLogout: function(req, res){
     res.redirect("/");
 },
 
+learnMore: function(req,res){
+    
+    res.render("learn");
+    
+},
+
 };
