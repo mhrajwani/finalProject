@@ -26,6 +26,7 @@
 <h1 class = "center"> Real-Time Information</h1>
 <p class = "para"><strong>Current Price: </strong>$<%=sb.quote.latestPrice%> as of <%=sb.quote.latestTime%></p>
 <p class = "para"><strong>Previous Close: </strong>$<%=sb.quote.previousClose%></p>
+<p class = "para"><strong>Change: </strong>$<%=sb.quote.change%></p>
 <% var pc = parseFloat(sb.quote.changePercent).toFixed(4)*100 %>
 <p class = "para"><strong>Percentage Change: </strong><%=pc%>% </p>
 <p class = "para"><strong>Today High: </strong>$<%=sb.quote.high%></p>
@@ -38,6 +39,7 @@
 <p class = "para"><strong>Average Daily Volume : </strong><%=sb.quote.avgTotalVolume.toLocaleString()%></p>
 <p class = "para"><strong>52 Weeks High: </strong>$<%=sb.quote.week52High%></p>
 <p class = "para"><strong>52 Weeks Low: </strong>$<%=sb.quote.week52Low%></p>
+<p class = "para"><strong>Year-to-Date Change: </strong><%= parseFloat(sb.quote.ytdChange).toFixed(4)*100 %>%</p>
 
 
 </div>

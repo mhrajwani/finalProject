@@ -12,9 +12,9 @@
         <canvas id="myChart"></canvas>
         
         <% if (total< 0) { %>
-        <h3>Sorry!!, Your Financial position is not good, Your NET ASSET is $<%=total.toLocaleString()%></h3>
+        <h5>Sorry!!, Your Financial position is not good, Your NET ASSET is $<%=total.toLocaleString()%></h3>
         <% } else { %>
-        <h3>Congrats!! Your Financial position is Good, Your NET ASSET is $<%=total.toLocaleString()%></h3>
+        <h5>Congrats!! Your Financial position is Good, Your NET ASSET is $<%=total.toLocaleString()%></h3>
         <% } %>
         <a href="/main">Go Back</a>
     </div>
