@@ -5,7 +5,7 @@
   <h1 class="display-4">Welcome to your Financial Guide</h1>
   <p class="lead">Create your portfolio, get all Financial news and have your own Stock watchlist</p>
   <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="learnmore" role="button">Learn more</a>
+  <a class="btn btn-primary btn-lg" href="/learnmore" role="button">Learn more</a>
 </div>
 
 <div class = "container-fluid">
@@ -19,13 +19,13 @@
       
       <% if (currentUser.username == portfolio.user.username) { %>
       
-      <p class = "para"><strong>CASH :</strong><span class = "span"> $<%=portfolio.cash%></span></p>
-      <p class = "para"><strong>STOCKS :</strong><span class = "span"> $<%=portfolio.stocks%></span></p>
-      <p class = "para"><strong>DEBTS :</strong><span class = "span"> $<%=portfolio.debts%></span></p>
-      <p class = "para"><strong>OTHER ASSETS :</strong><span class = "span"> $<%=portfolio.other_assets%></span></p>
-      <p class = "para"><strong>OTHER LIABILITIES :</strong><span class = "span"> $<%=portfolio.other_liabilities%></span></p>
+      <p class = "para"><strong>CASH :</strong><span class = "span"> $<%=portfolio.cash.toLocaleString()%></span></p>
+      <p class = "para"><strong>STOCKS :</strong><span class = "span"> $<%=portfolio.stocks.toLocaleString()%></span></p>
+      <p class = "para"><strong>DEBTS :</strong><span class = "span"> $<%=portfolio.debts.toLocaleString()%></span></p>
+      <p class = "para"><strong>OTHER ASSETS :</strong><span class = "span"> $<%=portfolio.other_assets.toLocaleString()%></span></p>
+      <p class = "para"><strong>OTHER LIABILITIES :</strong><span class = "span"> $<%=portfolio.other_liabilities.toLocaleString()%></span></p>
       
-    <p class = "para"><strong>TOTAL : </strong><span class = "span">$<%=portfolio.cash+ portfolio.stocks- portfolio.debts+portfolio.other_assets-portfolio.other_liabilities%></span></p>
+    <p class = "para"><strong>TOTAL : </strong><span class = "span">$<%=(portfolio.cash+ portfolio.stocks- portfolio.debts+portfolio.other_assets-portfolio.other_liabilities).toLocaleString()%></span></p>
       
       <a class="btn btn-success btn-sm" href="/portfolio/<%=portfolio._id%>">Show More</a>
       <a class="btn btn-warning btn-sm" id ="loginbtn" href="/portfolio/<%=portfolio._id%>/update">Update Portfolio</a> 
@@ -77,6 +77,7 @@
             <form action = "/watchlist/<%=watchlist._id %>/delete" method = "POST" class="form-inline" id = "wldelete">
             <button type ="submit" class="btn btn-danger btn-sm"><span><i class="fa fa-trash"></i></span></button>
             </form>
+            </p>
           </div>
       </div>
       <%}else if (currentUser.username == watchlist.user.username){%>
@@ -87,9 +88,11 @@
       </form>
       </p>
        <% }}); %>
-       
+       <p>
       <a class="btn btn-primary btn-sm" href="/watchlist">Add Watchlist</a>
-      </div>
+      <a class="btn btn-warning btn-sm" id ="loginbtn" href="/game">Virtual Stock Game</a>
+    </p>
+    </div>
     </div>
     
     

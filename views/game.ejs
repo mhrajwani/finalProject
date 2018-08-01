@@ -1,0 +1,146 @@
+<% include ./partials/header %>
+<h4 class="center">Buy Stock</h4>
+<div class="container">
+    <div class = "cont">
+    <p>
+    <div class = "row">
+        <div class = "col-xs-2">
+            <strong>COMPANY NAME</strong>
+        </div>
+        <div class = "col-xs-2">
+            <strong>STOCK SYMBOL</strong>
+        </div>
+        <div class = "col-xs-2">
+            <strong>STOCK PRICE</strong>
+        </div>
+    </div>
+    </p>
+      <% watchlist.forEach(function(watchlist){ %> 
+      
+      <% var symbol = watchlist.stock_symbol.toUpperCase()%>
+      <% if (currentUser.username == watchlist.user.username && sb[symbol]) { %>
+      <% let currentPrice = sb[symbol].quote.latestPrice%>
+      <p class = "para">
+      <div class="row">
+        <div class="col-xs-2" >
+          <div><%=watchlist.company_name%></div>
+        </div>
+        <div class="col-xs-2" >
+          <%=symbol%>
+        </div>
+        <div class="col-xs-2" >
+            <a class="btn btn-default btn-sm">$<span id="<%=symbol%>"><%=currentPrice%></span></a>
+        </div>
+        <div class="col-xs-3" >
+            <form action = "game" method = "POST" class="form-inline">
+          <input type = "hidden" name= "stock_name" value = <%=watchlist.stock_symbol%> >
+          <input type = "hidden" name= "buying_price" value = <%=parseFloat(currentPrice)%> >
+          <input type = "number" name = "quantity" placeholder = "quantity" class="quantity" id = "<%=symbol.toLowerCase()%>">
+          <button type ="submit" class="btn btn-primary btn-sm">BUY</button>
+      </form>
+      </div>
+      <div class="col-xs-3" >
+          Total Cost: <span id="total<%=symbol%>"></span>
+      </div>
+      </div>
+      
+      </p>
+      
+      <%}}); %>
+      <p>
+      <a class="btn btn-primary btn-sm" href="/watchlist">Add Watchlist</a>
+      <a href="/main">Go Back</a>
+      </p>
+      </div>
+    </div>
+      
+      
+      <h4 class="center">Stock Portfolio</h4>
+      
+<div class="container">
+        <div class = "cont">
+    <p>
+    <div class = "row">
+        
+        <div class = "col-xs-1">
+            <strong>COMPANY SYMBOL</strong>
+        </div>
+        <div class = "col-xs-1">
+            <strong>QUANTITY</strong>
+        </div>
+        <div class = "col-xs-2">
+            <strong>CURRENT VALUE</strong>
+        </div>
+        <div class = "col-xs-2">
+            <strong>BUYING COST</strong>
+        </div>
+        <div class = "col-xs-1">
+            <strong>PROFIT / LOSS</strong>
+        </div>
+        
+        <div class = "col-xs-2">
+            <strong>BOUGHT ON</strong>
+        </div>
+    </div>
+    </p>
+    
+      <%var total_value=0;%>
+      <%var total_cost=0;%>
+      <% game.forEach(function(game){ %> 
+
+        <% if (currentUser.username == game.user.username) { %>
+      <p class = "para">
+      <%var game_symbol = game.stock_name.toUpperCase()%>
+      
+      <%var current_value = (parseFloat((sb[game_symbol].quote.latestPrice)*game.quantity))%>
+      <%var buyingPrice = (parseFloat(game.buying_price*game.quantity))%>
+      
+      <%total_value = total_value+current_value%>
+      <%total_cost = total_cost+buyingPrice%>
+      <div class = "row">
+          
+        <div class = "col-xs-1">
+          <%=game_symbol%>
+      </div>
+      
+      <div class = "col-xs-1">
+      <%=game.quantity.toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-2">
+      $<%=current_value.toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-2">
+      $<%=buyingPrice.toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-1">
+      $<%=(current_value-buyingPrice).toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-2">
+      <% var date =  new Date(game.created)%> <%=date.toLocaleString('en-US')%>
+      </div>
+
+      <div class = "col-xs-1">
+            <form action = "/game/<%=game._id %>/delete" method = "POST" class="form-inline">
+                <button type ="submit" class="btn btn-danger btn-sm">Sell</button>
+            </form>
+
+      </div>
+      
+      </div>
+      </p>
+      <% } %>
+
+      <%});%>
+      <strong>TOTAL VALUE: <a class="btn btn-default btn-sm">$<%=total_value.toLocaleString()%></a>   TOTAL COST: <a class="btn btn-default btn-sm">$<%=total_cost.toLocaleString()%></a>   TOTAL PROFIT/LOSS <a class="btn btn-default btn-sm">$<%=(total_value-total_cost).toLocaleString()%></a></strong>
+    </div>
+      </div>
+      
+
+ 
+ <script src="scripts/game.js"></script>
+
+<% include ./partials/footer %>

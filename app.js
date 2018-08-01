@@ -10,6 +10,7 @@ var express               = require("express"),
 var portfolioRoutes       = require("./routes/portfolio"),
     linksRoutes           = require("./routes/link"),
     indexRoutes           = require("./routes/index"),
+    gameRoutes            = require("./routes/game"),
     watchlistRoutes       = require("./routes/watchlist"),
     PORT = process.env.PORT || 8080;
     
@@ -44,6 +45,7 @@ app.use("/",indexRoutes);
 app.use("/",portfolioRoutes);
 app.use("/",linksRoutes);
 app.use("/",watchlistRoutes);
+app.use("/",gameRoutes);
 
 app.listen(PORT,process.env.IP, function(){
     
