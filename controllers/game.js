@@ -35,7 +35,6 @@ getGame:function(req,res){
                 symbol = symbol+ wk.stock_name +",";
 
             })
-            console.log(symbol);
             var url = "https://api.iextrading.com/1.0/stock/market/batch?symbols="+symbol+"&types=quote,news,chart&range=1m&last=5";
             request(url, function (error, response, body) {
             var sb = JSON.parse(body);
@@ -65,7 +64,6 @@ postGame:function(req,res){
         if(err){
             console.log(err);
         } else {
-            console.log(newCreated);
             res.redirect("/game");
         }
     });
@@ -84,7 +82,15 @@ postDelete:function (req,res){
      
  },
 
-
+ postUpdate:function(req, res){
+    Stock.findByIdAndUpdate(req.params.id, req.body.stock, function(err, updated){
+       if(err){   
+           res.redirect("/game");
+       }  else {   
+           res.redirect("/game");
+       }
+    });
+ },
 
 };
 

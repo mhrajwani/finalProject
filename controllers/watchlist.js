@@ -50,8 +50,7 @@ module.exports = {
     
     
     postOne:function(req, res){
-
-   Watchlist.findByIdAndUpdate(req.params.id, req.body.watchlist, function(err, updated){
+    Watchlist.findByIdAndUpdate(req.params.id, req.body.watchlist, function(err, updated){
       if(err){
           res.redirect("/main");
       }  else {

@@ -55,7 +55,7 @@
     </div>
       
       
-      <h4 class="center">Stock Portfolio</h4>
+      <h4 class="center">Current Stock Portfolio</h4>
       
 <div class="container">
         <div class = "cont">
@@ -88,7 +88,7 @@
       <%var total_cost=0;%>
       <% game.forEach(function(game){ %> 
 
-        <% if (currentUser.username == game.user.username) { %>
+        <% if (currentUser.username == game.user.username && game.own_stock === true) { %>
       <p class = "para">
       <%var game_symbol = game.stock_name.toUpperCase()%>
       
@@ -124,9 +124,13 @@
       </div>
 
       <div class = "col-xs-1">
-            <form action = "/game/<%=game._id %>/delete" method = "POST" class="form-inline">
-                <button type ="submit" class="btn btn-danger btn-sm">Sell</button>
-            </form>
+
+            <form action = "/game/<%=game._id %>" method = "POST" class="form-inline">
+                    
+                    <input type = "hidden" name= "stock[own_stock]" value = false >
+                    <input type = "hidden" name= "stock[selling_price]" value = <%=parseFloat(sb[game_symbol].quote.latestPrice)%> >
+                    <button type ="submit" class="btn btn-warning btn-sm">Sell</button>
+                </form>
 
       </div>
       
@@ -136,6 +140,87 @@
 
       <%});%>
       <strong>TOTAL VALUE: <a class="btn btn-default btn-sm">$<%=total_value.toLocaleString()%></a>   TOTAL COST: <a class="btn btn-default btn-sm">$<%=total_cost.toLocaleString()%></a>   TOTAL PROFIT/LOSS <a class="btn btn-default btn-sm">$<%=(total_value-total_cost).toLocaleString()%></a></strong>
+    </div>
+      </div>
+
+
+      <h4 class="center">Sold Stocks</h4>
+      
+<div class="container">
+        <div class = "cont">
+    <p>
+    <div class = "row">
+        
+        <div class = "col-xs-1">
+            <strong>COMPANY SYMBOL</strong>
+        </div>
+        <div class = "col-xs-1">
+            <strong>QUANTITY</strong>
+        </div>
+        <div class = "col-xs-2">
+            <strong>SELLING PRICE</strong>
+        </div>
+        <div class = "col-xs-2">
+            <strong>BUYING COST</strong>
+        </div>
+        <div class = "col-xs-1">
+            <strong>PROFIT / LOSS</strong>
+        </div>
+        
+        
+    </div>
+    </p>
+    
+      <%var total_value=0;%>
+      <%var total_cost=0;%>
+      <% game.forEach(function(game){ %> 
+
+        <% if (currentUser.username == game.user.username && game.own_stock === false) { %>
+      <p class = "para">
+      <%var game_symbol = game.stock_name.toUpperCase()%>
+      
+      <%var soldPrice = (game.selling_price*game.quantity)%>
+      <%var buyingPrice =(game.buying_price*game.quantity)%>
+      
+      <%total_value = total_value+soldPrice%>
+      <%total_cost = total_cost+buyingPrice%>
+      <div class = "row">
+          
+        <div class = "col-xs-1">
+          <%=game_symbol%>
+      </div>
+      
+      <div class = "col-xs-1">
+      <%=game.quantity.toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-2">
+      $<%=(game.selling_price*game.quantity).toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-2">
+      $<%=buyingPrice.toLocaleString()%>
+      </div>
+      
+      <div class = "col-xs-1">
+      $<%=(soldPrice-buyingPrice).toLocaleString()%>
+      </div>
+      
+      
+
+      <div class = "col-xs-1">
+            <form action = "/game/<%=game._id %>/delete" method = "POST" class="form-inline">
+                <button type ="submit" class="btn btn-danger btn-sm">Delete Record</button>
+            </form>
+
+      </div>
+      
+      </div>
+      </p>
+      <% } %>
+
+      <%});%>
+      <strong>TOTAT SELL: <a class="btn btn-default btn-sm">$<%=total_value.toLocaleString()%></a>   TOTAL BUY: <a class="btn btn-default btn-sm">$<%=total_cost.toLocaleString()%></a>   TOTAL PROFIT/LOSS <a class="btn btn-default btn-sm">$<%=(total_value-total_cost).toLocaleString()%></a></strong>
     </div>
       </div>
       
