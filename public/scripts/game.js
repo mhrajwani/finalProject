@@ -1,6 +1,5 @@
 $(document).ready(function(){
-    
-    $(".quantity").keyup(function(e){
+    $(".quantity").bind('change keyup',function(e){
         var key= String.fromCharCode(e.which);
         var len = $(this).val()
         var stt = this.id

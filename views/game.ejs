@@ -1,95 +1,77 @@
 <% include ./partials/header %>
-<h4 class="center">Buy Stock</h4>
+<h3 class="center">Buy Stock</h4>
 <div class="container">
     <div class = "cont">
-    <p>
-    <div class = "row">
-        <div class = "col-xs-2">
-            <strong>COMPANY NAME</strong>
-        </div>
-        <div class = "col-xs-2">
-            <strong>STOCK SYMBOL</strong>
-        </div>
-        <div class = "col-xs-2">
-            <strong>STOCK PRICE</strong>
-        </div>
-    </div>
-    </p>
+        <table>
+        <tr>
+            <th><strong>COMPANY NAME</strong></th>
+        
+            <th><strong>STOCK SYMBOL</strong></th>
+        
+            <th><strong>STOCK PRICE</strong></th>
+            <th>BUY</th>
+            <th>COST</th>
+        </tr>
       <% watchlist.forEach(function(watchlist){ %> 
       
       <% var symbol = watchlist.stock_symbol.toUpperCase()%>
       <% if (currentUser.username == watchlist.user.username && sb[symbol]) { %>
       <% let currentPrice = sb[symbol].quote.latestPrice%>
-      <p class = "para">
-      <div class="row">
-        <div class="col-xs-2" >
-          <div><%=watchlist.company_name%></div>
-        </div>
-        <div class="col-xs-2" >
-          <%=symbol%>
-        </div>
-        <div class="col-xs-2" >
-            <a class="btn btn-default btn-sm">$<span id="<%=symbol%>"><%=currentPrice%></span></a>
-        </div>
-        <div class="col-xs-3" >
-            <form action = "game" method = "POST" class="form-inline">
+      <tr>
+        <td><%=watchlist.company_name%></td>
+        
+        <td><%=symbol%></td>
+        
+        <td><a class="btn btn-default btn-sm">$<span id="<%=symbol%>"><%=currentPrice%></span></a></td>
+        
+        <td><form action = "game" method = "POST" class="form-inline">
           <input type = "hidden" name= "stock_name" value = <%=watchlist.stock_symbol%> >
           <input type = "hidden" name= "buying_price" value = <%=parseFloat(currentPrice)%> >
-          <input type = "number" name = "quantity" placeholder = "quantity" class="quantity" id = "<%=symbol.toLowerCase()%>">
+          <input type = "number" name = "quantity" placeholder = "qty" class="quantity" id = "<%=symbol.toLowerCase()%>" style="width:60px;" required>
           <button type ="submit" class="btn btn-primary btn-sm">BUY</button>
-      </form>
-      </div>
-      <div class="col-xs-3" >
-          Total Cost: <span id="total<%=symbol%>"></span>
-      </div>
-      </div>
+      </form></td>
+
+    
+        <td><span id="total<%=symbol%>"></span></td>
       
-      </p>
+        </tr>
+    
       
       <%}}); %>
-      <p>
+    </table>
       <a class="btn btn-primary btn-sm" href="/watchlist">Add Watchlist</a>
       <a href="/main">Go Back</a>
-      </p>
-      </div>
+
+    </div>
     </div>
       
       
-      <h4 class="center">Current Stock Portfolio</h4>
+      <h3 class="center">Current Stock Portfolio</h4>
       
 <div class="container">
         <div class = "cont">
-    <p>
-    <div class = "row">
+    <table>
+        <tr>
+            <th><strong>COMPANY SYMBOL</strong></th>
         
-        <div class = "col-xs-1">
-            <strong>COMPANY SYMBOL</strong>
-        </div>
-        <div class = "col-xs-1">
-            <strong>QUANTITY</strong>
-        </div>
-        <div class = "col-xs-2">
-            <strong>CURRENT VALUE</strong>
-        </div>
-        <div class = "col-xs-2">
-            <strong>BUYING COST</strong>
-        </div>
-        <div class = "col-xs-1">
-            <strong>PROFIT / LOSS</strong>
-        </div>
+            <th><strong>QUANTITY</strong></th>
         
-        <div class = "col-xs-2">
-            <strong>BOUGHT ON</strong>
-        </div>
-    </div>
-    </p>
+            <th><strong>CURRENT VALUE</strong></th>
+        
+            <th><strong>BUYING COST</strong></th>
+        
+            <th><strong>PROFIT / LOSS</strong></th>
+        
+            <th><strong>BOUGHT ON</strong></th>
+            <th>SELL</th>
+        </tr>
     
       <%var total_value=0;%>
       <%var total_cost=0;%>
       <% game.forEach(function(game){ %> 
 
         <% if (currentUser.username == game.user.username && game.own_stock === true) { %>
-      <p class = "para">
+     
       <%var game_symbol = game.stock_name.toUpperCase()%>
       
       <%var current_value = (parseFloat((sb[game_symbol].quote.latestPrice)*game.quantity))%>
@@ -97,86 +79,62 @@
       
       <%total_value = total_value+current_value%>
       <%total_cost = total_cost+buyingPrice%>
-      <div class = "row">
-          
-        <div class = "col-xs-1">
-          <%=game_symbol%>
-      </div>
+      <tr>
+          <td><%=game_symbol%></td>
       
-      <div class = "col-xs-1">
-      <%=game.quantity.toLocaleString()%>
-      </div>
+      <td><%=game.quantity.toLocaleString()%></td>
       
-      <div class = "col-xs-2">
-      $<%=current_value.toLocaleString()%>
-      </div>
+      <td>$<%=current_value.toLocaleString()%></td>
       
-      <div class = "col-xs-2">
-      $<%=buyingPrice.toLocaleString()%>
-      </div>
+      <td>$<%=buyingPrice.toLocaleString()%></td>
       
-      <div class = "col-xs-1">
-      $<%=(current_value-buyingPrice).toLocaleString()%>
-      </div>
+      <td>$<%=(current_value-buyingPrice).toLocaleString()%></td>
       
-      <div class = "col-xs-2">
-      <% var date =  new Date(game.created)%> <%=date.toLocaleString('en-US')%>
-      </div>
+      <% var date =  new Date(game.created)%> 
+      <td><%=date.toLocaleString('en-US')%></td>
+      
 
-      <div class = "col-xs-1">
-
-            <form action = "/game/<%=game._id %>" method = "POST" class="form-inline">
+            <td><form action = "/game/<%=game._id %>" method = "POST" class="form-inline">
                     
                     <input type = "hidden" name= "stock[own_stock]" value = false >
                     <input type = "hidden" name= "stock[selling_price]" value = <%=parseFloat(sb[game_symbol].quote.latestPrice)%> >
                     <button type ="submit" class="btn btn-warning btn-sm">Sell</button>
-                </form>
+                </form></td>
 
-      </div>
-      
-      </div>
-      </p>
+            </tr>
       <% } %>
 
       <%});%>
-      <strong>TOTAL VALUE: <a class="btn btn-default btn-sm">$<%=total_value.toLocaleString()%></a>   TOTAL COST: <a class="btn btn-default btn-sm">$<%=total_cost.toLocaleString()%></a>   TOTAL PROFIT/LOSS <a class="btn btn-default btn-sm">$<%=(total_value-total_cost).toLocaleString()%></a></strong>
+    </table>
+      <strong>CURRENT VALUE: <a class="btn btn-default btn-sm">$<%=total_value.toLocaleString()%></a>   TOTAL COST: <a class="btn btn-default btn-sm">$<%=total_cost.toLocaleString()%></a>   TOTAL PROFIT/LOSS <a class="btn btn-default btn-sm">$<%=(total_value-total_cost).toLocaleString()%></a></strong>
     </div>
-      </div>
+    </div>
 
-
-      <h4 class="center">Sold Stocks</h4>
+      <h3 class="center">Sold Stocks</h4>
       
 <div class="container">
         <div class = "cont">
-    <p>
-    <div class = "row">
+   <table>
+       <tr>
+            <th><strong>COMPANY SYMBOL</strong></th>
         
-        <div class = "col-xs-1">
-            <strong>COMPANY SYMBOL</strong>
-        </div>
-        <div class = "col-xs-1">
-            <strong>QUANTITY</strong>
-        </div>
-        <div class = "col-xs-2">
-            <strong>SELLING PRICE</strong>
-        </div>
-        <div class = "col-xs-2">
-            <strong>BUYING COST</strong>
-        </div>
-        <div class = "col-xs-1">
-            <strong>PROFIT / LOSS</strong>
-        </div>
+            <th><strong>QUANTITY</strong></th>
         
-        
-    </div>
-    </p>
+            <th><strong>SELLING PRICE</strong></th>
+       
+            <th><strong>BUYING COST</strong></th>
+      
+            <th><strong>PROFIT / LOSS</strong></th>
+
+            <th>DELETE RECORD</th>
+        </tr>
     
       <%var total_value=0;%>
       <%var total_cost=0;%>
       <% game.forEach(function(game){ %> 
 
         <% if (currentUser.username == game.user.username && game.own_stock === false) { %>
-      <p class = "para">
+      <tr>
       <%var game_symbol = game.stock_name.toUpperCase()%>
       
       <%var soldPrice = (game.selling_price*game.quantity)%>
@@ -184,47 +142,31 @@
       
       <%total_value = total_value+soldPrice%>
       <%total_cost = total_cost+buyingPrice%>
-      <div class = "row">
-          
-        <div class = "col-xs-1">
-          <%=game_symbol%>
-      </div>
       
-      <div class = "col-xs-1">
-      <%=game.quantity.toLocaleString()%>
-      </div>
+      <td><%=game_symbol%></td>
       
-      <div class = "col-xs-2">
-      $<%=(game.selling_price*game.quantity).toLocaleString()%>
-      </div>
+      <td><%=game.quantity.toLocaleString()%></td>
       
-      <div class = "col-xs-2">
-      $<%=buyingPrice.toLocaleString()%>
-      </div>
+      <td>$<%=(game.selling_price*game.quantity).toLocaleString()%></td>
       
-      <div class = "col-xs-1">
-      $<%=(soldPrice-buyingPrice).toLocaleString()%>
-      </div>
+      <td>$<%=buyingPrice.toLocaleString()%></td>
+     
+      <td>$<%=(soldPrice-buyingPrice).toLocaleString()%></td>
       
-      
-
-      <div class = "col-xs-1">
-            <form action = "/game/<%=game._id %>/delete" method = "POST" class="form-inline">
+            <td><form action = "/game/<%=game._id %>/delete" method = "POST" class="form-inline">
                 <button type ="submit" class="btn btn-danger btn-sm">Delete Record</button>
-            </form>
+            </form></td>
 
-      </div>
-      
-      </div>
-      </p>
+        </tr>
       <% } %>
 
       <%});%>
+    </table>
       <strong>TOTAT SELL: <a class="btn btn-default btn-sm">$<%=total_value.toLocaleString()%></a>   TOTAL BUY: <a class="btn btn-default btn-sm">$<%=total_cost.toLocaleString()%></a>   TOTAL PROFIT/LOSS <a class="btn btn-default btn-sm">$<%=(total_value-total_cost).toLocaleString()%></a></strong>
-    </div>
-      </div>
+    
       
-
+    </div>
+</div>
  
  <script src="scripts/game.js"></script>
 

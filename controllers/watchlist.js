@@ -12,6 +12,7 @@ module.exports = {
     var cn = req.body.cn;
     cn = cn.toUpperCase();
     var symbol = req.body.symbol;
+    symbol = symbol.toLowerCase();
     var tp = req.body.tp;
     var imd = req.body.imd;
     var an = req.body.an;
