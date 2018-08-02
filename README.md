@@ -1,3 +1,5 @@
+This App is deployed at <a href="http://ucfstockapp.herokuapp.com" target="_blank">ucfstockapp.herokuapp.com</a>
+
 <p class = "para">1. This is a Stock App for helping in analyzing stocks and keeping track of your financial portfolio</p>
 <p class = "para">2. To get the details about any stock trading in Nasdaq,AMEX,NYSE and many more, just create a watchlist with correct stock symbols.</p>
 <p class = "para">3. You can bookmark your favourite financial Websites, so you can access from the app. </p>
@@ -8,4 +10,4 @@
 <p class = "para">8. Also the future version will include a guide on how to manage the Portfolio, i.e, What should be the Ideal percentage of cash postion, investment, retirement saving and so on</p>
 <p class = "para">9. Any bugs or improvement advise please email <a href="mailto:mo.rajwani@gmail.com" target="_top">mo.rajwani@gmail.com</a></p>
 
-This App is deployed at <a href="http://ucfstockapp.herokuapp.com" target="_blank">ucfstockapp.herokuapp.com</a>
+
